@@ -98,7 +98,7 @@ class Testcase(models.Model):
     output = models.TextField()
 
     def __unicode__(self):
-        return str(testSet)
+        return str(self.testSet)
 
 # Users can submit their solution to a problem. A submission has a result, time 
 # of submission, penalty for that submission, score for the submission, 
