@@ -1,30 +1,37 @@
-from models import *
+import models
+from django.contrib import admin
 
+# Admin interface for the Contest Model
 class ContestAdmin(admin.ModelAdmin):
-    list_display = ( 'title' , 'startTime', 'endTime' )
-    search_fields = ['title']
+    pass
 
+#Admin interface for the Problem Model
 class ProblemAdmin(admin.ModelAdmin):
-    list_display = ( 'pcode', 'contest', 'is_approximate', 'cust_eval', 'cust_minScore', 
-                     'cust_maxScore', 'statement', 'constraints', 'sampleInput', 'sampleOutput',
-                     'scoring_info', 'tlimit', 'mlimit', 'allowedLangs', 'source_limit') 
-    search_fields = ['pcode', 'contest']
+    pass
 
-class SubmissionAdmin(admin.ModelAdmin):
-    list_display = ( 'pk', 'user', 'problem', 'result', 'score', 'time', 'language', 
-                     'score', 'code', 'errors') 
-    search_fields = [ 'pk', 'user', 'problem', 'result', ] 
-
+#Admin interface for the TestSet Model
 class TestSetAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'problem', 'maxScore')
-    search_fields = ['problem', 'maxScore']
-    
-class TestcaseAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'testSet', 'input', 'output')
+    pass
 
-admin.site.register(Contest, ContestAdmin)
-admin.site.register(Problem, ProblemAdmin)
-admin.site.register(Submission, SubmissionAdmin)
-admin.site.register(TestSet, TestSetAdmin)
-admin.site.register(Testcase, TestCaseAdmin)
+#Admin interface for the TestcaseAdmin Model
+class TestcaseAdmin(admin.ModelAdmin):
+    pass
+
+#Admin interface for the Submission Model
+class SubmissionAdmin(admin.ModelAdmin):
+    pass
+
+#Admin interface for the TestcaseEval Model
+class TestCaseEvalAdmin(admin.ModelAdmin):
+    pass
+
+# Map all the Admin site with the respective models.
+admin.site.register(models.Contest, ContestAdmin)
+admin.site.register(models.Problem, ProblemAdmin)
+admin.site.register(models.TestSet, TestSetAdmin)
+admin.site.register(models.Testcase, TestcaseAdmin)
+admin.site.register(models.Submission, SubmissionAdmin)
+admin.site.register(models.TestcaseEval, TestCaseEvalAdmin)
+
+
 
