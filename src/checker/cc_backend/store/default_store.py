@@ -19,14 +19,14 @@ class Default(Store):
         self.config = config
 
     def get_submission(self):
-        try 
+        try :
             q_sub = Submission.objects.filter(result='QU')[0]
             src_fname = os.path.join(self.config.abs_path, str(q_sub.pk) +
                         '.' + q_sub.language)
             src_file = open(src_fname, 'w')
             src_file.write(q_sub.code)
             src_file.close()
-
+            ret = { }
             ret['src_file'] = src_fname 
             ret['prob_id'] = str(q_sub.problem)
             ret['id'] = str(q_sub.pk)
