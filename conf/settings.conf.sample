@@ -2,6 +2,7 @@
 TIME_ZONE=Asia/Kolkata
 MEDIA_URL=http://localhost/media/
 ADMIN_MEDIA_PREFIX=http://localhost/media/
+STYLESHEET=coolblue
 
 [database]
 DATABASE_ENGINE=     
