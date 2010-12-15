@@ -38,15 +38,16 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'cc_frontend.web'
+    'checker.cc_frontend.web'
  )
 
 # codechecker based custom config
 BASE_URL = config.get('apache', 'BASE_URL')
+SERVERNAME = config.get('apache', 'SERVERNAME')
 
 # template
 TEMPLATE = config.get('django', 'TEMPLATE')
 
 # Debug
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+DEBUG = False
+TEMPLATE_DEBUG =False
