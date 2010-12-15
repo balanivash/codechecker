@@ -26,7 +26,7 @@ DATABASE_PASSWORD = config.get('database', 'DATABASE_PASSWORD')
 
 ROOT_URLCONF = 'checker.cc_frontend.urls'
 TEMPLATE_DIRS = ( 
-    os.path.join( os.getcwd(), 'templates/')
+    '/usr/local/share/checker/templates/',
  )
 MEDIA_URL = config.get('django', 'MEDIA_URL')
 ADMIN_MEDIA_PREFIX = config.get('django', 'ADMIN_MEDIA_PREFIX')
@@ -46,8 +46,8 @@ BASE_URL = config.get('apache', 'BASE_URL')
 SERVERNAME = config.get('apache', 'SERVERNAME')
 
 # template
-TEMPLATE = config.get('django', 'TEMPLATE')
+STYLESHEET = config.get('django', 'STYLESHEET')
 
 # Debug
 DEBUG = False
-TEMPLATE_DEBUG =False
+TEMPLATE_DEBUG = False

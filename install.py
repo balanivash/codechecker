@@ -64,17 +64,23 @@ shutil.copy( os.path.join( os.getcwd(), 'conf/codechecker.conf'),
 shutil.copy( os.path.join( os.getcwd(), 'conf/django.conf'), 
             os.path.join( frontend_conf, 'django.conf') )
 
-#copy the media folder to /usr/share/checker/media
+#copy the media folder to /usr/local/share/checker/media
 # and remove it if already present 
 if os.path.exists( media_dir + 'media/'):
     shutil.rmtree( media_dir + 'media/' )
+    
+if os.path.exists( media_dir + 'templates/'):
+    shutil.rmtree( media_dir + 'templates/' )
 
 if os.path.exists( '/var/www/media/' ):
     shutil.rmtree('/var/www/media/')
-    exit(1)
 
 shutil.copytree(os.getcwd() + '/media', 
                 media_dir + 'media/' )
+
+#Copy templates to /usr/local/share/checker
+shutil.copytree(os.getcwd() + '/src/checker/cc_frontend/templates',
+                            media_dir + 'templates/')
 
 #this is a temporary copy to /www/media
 shutil.copytree(os.getcwd() + '/media', 

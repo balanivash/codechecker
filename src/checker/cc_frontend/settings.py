@@ -44,8 +44,8 @@ INSTALLED_APPS = (
 # codechecker based custom config
 BASE_URL = config.get('apache', 'BASE_URL')
 
-# template
-TEMPLATE = config.get('django', 'TEMPLATE')
+# template 
+STYLESHEET = config.get('django', 'STYLESHEET')
 
 # Debug
 DEBUG = True
