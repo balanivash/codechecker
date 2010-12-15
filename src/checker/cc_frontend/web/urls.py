@@ -1,5 +1,7 @@
 from django.conf.urls.defaults import patterns, include
 from django.contrib import admin
+import views
+
 admin.autodiscover()
 
 urlpatterns = patterns( '',
@@ -10,5 +12,8 @@ urlpatterns = patterns( '',
 
     # Uncomment the next line to enable the admin:
     ( r'^admin/', include( admin.site.urls ) ),
+    
+    # Home page
+    ( r'^$', views.default)
 
 )
