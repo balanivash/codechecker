@@ -32,6 +32,7 @@ RESULT_TYPES = (
 # The site is organized as contests, this is a basic contest model
 # Contest has a title,  a general description startTime and endTime.
 # Also if it will be publicly viewable by non admins if public is True.
+# Contests rules, Format can be added to rules
 
 class Contest(models.Model):
     title = models.CharField(max_length = 25) 
@@ -39,7 +40,8 @@ class Contest(models.Model):
     startTime = models.DateTimeField()
     endTime = models.DateTimeField()
     public = models.BooleanField(default = False)
-
+    rules = models.TextField()
+    
     def __unicode__(self):
         return self.title
 

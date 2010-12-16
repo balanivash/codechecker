@@ -5,7 +5,7 @@ from django.contrib import admin
 class ContestAdmin(admin.ModelAdmin):
     fieldsets = (
         ( 'General', {
-            'fields' : ('title','description',)
+            'fields' : ('title','description', 'rules')
         }),
         ( 'Schedule', {
             'fields' : ('startTime', 'endTime',)
