@@ -55,7 +55,7 @@
                 {% if user.is_authenticated %}
                 Welcome, <a href="#"> {{ user.username }} !</a>
                 {% else %} 
-                <a href="{{prefix}}login/"> Log in </a> 
+                <a href="{{prefix}}/login/"> Log in </a> / <a href="{{prefix}}/register"> Register </a>
                 {% endif %}
                 </p> 
 
@@ -70,39 +70,42 @@
 
                 <!-- main -->
                 <div id="main">
+					<div id="breadcrumbs"> {% block breadcrumbs %} <a href="#"> Testing </a> {% endblock %} </div>
 
                     <div class="post">
                         {% block mainblock %}
 
-                        <h2><a href="index.html">Lorem Ipsum Dolor Sit Amet</a></h2>
-
-                        <p class="post-info">Filed under <a href="index.html">templates</a>, <a href="index.html">internet</a></p>
-
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum.
-                        Cras id urna. Morbi tincidunt, orci ac <a href="index.html">convallis aliquam</a>, lectus turpis varius lorem, eu
-                        posuere nunc justo tempus leo.</p>
-
+                        <h3><a href="#"> What does it do </a></h3>
+						<p>    Codechecker is an automated judge system to conduct
+                    		programming contests. It has a mechanism to submit
+                    		problem solutions, have them judged fully
+                    		automatically and provides (web) interfaces for
+                    		teams, the jury and the general public. 
+                    	</p>
+                    	
+                    	<h3><a href="#"> How does it work </a></h3>
+                    	<p> 
+                    		It contains two major parts:
+							<ol>
+   							<li> A backend program (the Code Checker) that processes programs submitted by participants by running them against a predefined set of test cases, and reporting results into a database. </li>
+   							<li> Frontend code that is django based and contains a website interface for participants to read the problems, submit solutions to them, see the results of the Code Checker and their position in the ranklist. </li>
+   							</ol> 
                         <p>
-                        Donec mattis, purus nec placerat bibendum, <a href="index.html">dui pede condimentum</a>
-                        odio, ac blandit ante orci ut diam. Cras fringilla magna. Phasellus suscipit, leo a pharetra
-                        condimentum, lorem tellus eleifend magna, <a href="index.html">eget fringilla velit</a> magna id neque. Curabitur vel urna.
-                        In tristique orci porttitor ipsum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum.
-                        Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu
-                        posuere nunc justo tempus leo.</p>
-
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum.
-                        Cras id urna. Morbi tincidunt, orci ac <a href="index.html">convallis aliquam</a>, lectus turpis varius lorem, eu
-                        posuere nunc justo tempus leo.</p>
-
+                        
+                        <h3><a href="#"> Prerequisites </a></h3>
                         <p>
-                        Donec mattis, purus nec placerat bibendum, <a href="index.html">dui pede condimentum</a>
-                        odio, ac blandit ante orci ut diam. Cras fringilla magna. Phasellus suscipit, leo a pharetra
-                        condimentum, lorem tellus eleifend magna, <a href="index.html">eget fringilla velit</a> magna id neque. Curabitur vel urna.
-                        In tristique orci porttitor ipsum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum.
-                        Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu
-                        posuere nunc justo tempus leo.</p>
-                        <p><a class="more" href="index.html">continue reading &raquo;</a></p>
-
+                        	Software required:
+							<ul>
+    						<li> A GNU/Linux installation, but the instructions here may be Ubuntu specific. </li>
+    						<li> Apache webserver </li>
+    						<li> Python 2.6.4 (may work with earlier, but not tested, same for the rest.) </li>
+    						<li> MySQL </li>
+    						<li> Django 1.1.1 </li>
+    						<li> Mod-Python </li>
+    						<li> python-mysql (Mysql interface for python) </li>
+                        </p>
+                        <a class="more" href="/active/">Active Contests &raquo;</a></p>
+						<a class="more" href="/register/">Register &raquo;</a></p>
                         {% endblock %}
                     </div>
 

@@ -234,8 +234,6 @@ input.button {
   height: 30px;
   font: bold 12px 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   margin: 0;
-  padding: 10px 0 0 30px;
-  display: block;
 }
 #header p#login a:hover { color: #fff; }
 
@@ -590,6 +588,11 @@ ul.subscribe-stuff li img {
 /* ------------------------------------------------------------------------------
 		B L O G   P O S T
 --------------------------------------------------------------------------------- */
+#breadcrumbs {
+   margin: 0px 5px 5px 25px ;
+   width: 740px;
+   overflow: hidden;
+}
 .post {
    margin: 5px 0 20px 0;
    padding: 0 0 20px 0;
