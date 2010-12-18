@@ -4,7 +4,7 @@
 
     <head>
 
-        <title> Codechecker </title>
+        <title> Codechecker  {% block header %}  {% endblock %}  </title>
 
         <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
         <meta name="author" content="Erwin Aligam - styleshout.com" />
@@ -48,6 +48,7 @@
                         <li><a href="{{ prefix }}/news/"> News </a></li>
                         <li><a href="{{ prefix }}/register/"> Register </a></li>
                         <li><a href="{{ prefix }}/about/"> About </a></li>
+                        <li><a href="{{ prefix }}/references/" >References</a> </li>
                     </ul>
                 </div>
 
@@ -70,7 +71,7 @@
 
                 <!-- main -->
                 <div id="main">
-					<div id="breadcrumbs"> {% block breadcrumbs %} <a href="#"> Testing </a> {% endblock %} </div>
+					<!-- <div id="breadcrumbs"> {% block breadcrumbs %} <a href="#"> Testing </a> {% endblock %} </div> -->
 
                     <div class="post">
                         {% block mainblock %}
@@ -121,7 +122,6 @@
                         <ul>
                             <li><a href="{{ prefix }}/contests/" > Contests </a><br /></li>
                             <li><a href="{{ prefix }}/problems/" > Problems </a> <br /></li>
-                            <li><a href="{{ prefix }}/references/" >References</a> <br /></li>
                             <li><a href="{{ prefix }}/status/" >Judge Status</a> <br /></li>
                             <li><a href="{{ prefix }}/announcements/" >Announcements</a><br /></li>
                         </ul>

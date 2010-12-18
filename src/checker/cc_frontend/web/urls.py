@@ -13,7 +13,10 @@ urlpatterns = patterns( '',
     # Uncomment the next line to enable the admin:
     ( r'^admin/', include( admin.site.urls ) ),
     
-    # Home page
-    ( r'^$', views.default)
-
+    # Top level links pages
+    ( r'^$', views.default ),
+    ( r'^about/$', views.default, { 'action' : 'about' } ),
+    ( r'^references/$', views.default, { 'action' : 'references' }),
+    ( r'^news/$', views.default, { 'action' : 'news' }),
+ 
 )
