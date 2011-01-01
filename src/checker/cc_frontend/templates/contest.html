@@ -1,16 +1,20 @@
-{% extends 'table.html' %}
+{% extends stylesheet %}
 
 {% block header %}
-<h3> Contest : {{ title }} </h3>
+ - {{ title }} Contest
 {% endblock %}
-{% block links %}
 
+{% block sidebar %}
 <div id="links">
-    <a href = "/site/contests/{{ contest }}/description/" id="description">Description</a>
-    <a href = "/site/contests/{{ contest }}/problems" id="problems">Problems</a>
-    <a href = "/site/contests/{{ contest }}/ranklist" id="ranklist">Ranklist</a>
-    <a href = "/site/contests/{{ contest }}/submissions" id="submissions">Submissions</a>
-    <a href = "/site/contests/{{ contest }}/my_submissions" id="my-submissions">My Submissions</a>
+    <ul>
+    	<li><a href="{{ prefix }}/contests/{{ contest_id }}/" > {{ contest_name }} </a><br /></li>
+    	<li><a href="{{ prefix }}/contests/{{ contest_id }}/announcements/" > Announcements </a> <br /></li>
+        <li><a href="{{ prefix }}/contests/{{ contest_id }}/rules/" > Rules </a> <br /></li>
+        <li><a href="{{ prefix }}/contests/{{ contest_id }}/problems/" > Problems </a> <br /></li>
+        <li><a href="{{ prefix }}/submissions/contest-{{ contest_id }}/" > Judge Status  </a> <br /></li>
+        <li><a href="{{ prefix }}/my-submissions/contest-{{ contest_id }}/" > My Submissions  </a> <br /></li>
+        <li><a href="{{ prefix }}/contests/{{ contest_id }}/ranklist/" > Leader Board  </a> <br /></li>
+    </ul>
     <script type="text/javascript">
         var linkNode = document.getElementById("{{ section }}");
         linkNode.className = "selected";
@@ -18,14 +22,15 @@
 </div>
 {% endblock %}
 
-{% block main_content %}
+{% block mainblock %}
 {% autoescape off %}
-{% ifequal section "description" %}
-{{ description }}
-{% endifequal %}
-{% ifnotequal section "description" %}
+{% if table_data %} 
 {{ block.super }}
-{% endifnotequal %}
+{% endif %}
+
+{% if content_data %}
+{{ content_data }}
+{% endif %}
+
 {% endautoescape %}
 {% endblock %}
-

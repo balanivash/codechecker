@@ -1,64 +1,38 @@
-{% extends 'base.html' %}
+{% extends stylesheet %}
 
-{% block header %}
-<h3> {{ category }} </h3> 
-{% endblock %}
-
-{% block main_content %}
-<center>
-{% if current_page %}
-<div class="pagination">
-    <span>
-        {% if current_page.has_previous %}
-            <a href="{{ base_url }}/{{ current_page.previous_page_number }}/"><img src="/media/img/site/arrowleft.png"> </a>
-        {% endif %}
-    </span>
-        <span>
-            Page {{ current_page.number }} of {{ current_page.paginator.num_pages }}
-        </span>
-    <span>
-        {% if current_page.has_next %}
-            <a href="{{ base_url }}/{{ current_page.next_page_number }}/"> <img src="/media/img/site/arrowright.png"></a>
-        {% endif %}
-    </span>
-</div>
-{% endif %}
+{% block mainblock %}
 {% autoescape off %}
-<table id="{{category}}" class="zebra"> 
+{% if table_data %}
+<table> 
     <thead><tr>
-        {% for col in columns %}
-        <th scope="col"> 
-	  {% if col.link %} 
-          <a href="{{ col.link }}">{{ col.name }}</a>
-          {% else %}
-          {{ col.name }}
-          {% endif %}
-	</th>    
+        {% for col in table_head_row %}
+        	<th> 
+	  			{% if col.link %} 
+          			<a href="{{ col.link }}">{{ col.name }}</a>
+          		{% else %}
+          			{{ col.name }}
+          		{% endif %}
+			</th>    
         {% empty %}
         {% endfor %}
     </tr></thead>
-    {% for rowItem in rows %}
-    {% if colored %}
-    <tr class="{{ rowItem.color }}">
-    {% else %}
-    <tr class="{% cycle "odd" "even" %}">
-    {% endif %}
-        {% for col in rowItem.items %}
-        <td> 
-            {% if col.link %} 
-            <a href="{{ col.link }}">{{ col.value }}</a>
-            {% else %}
-            {{ col.value }}
-            {% endif %}
-        </td>
-        {% endfor %}
-    </tr>
+    {% for table_row in table_rows %}
+    	<tr>
+        	{% for col in table_row.items %}
+        	<td> 
+            	{% if col.link %} 
+        	    	<a href="{{ col.link }}">{{ col.value }}</a>
+            	{% else %}
+            		{{ col.value }}
+            	{% endif %}
+        	</td>
+        	{% endfor %}
+    	</tr>
     {% empty %} 
     {% endfor %}
 </table>
+{% endif %}
+
+{% if content
 {% endautoescape %}
-</center>
 {% endblock %}
-
-
-

@@ -42,11 +42,11 @@ urlpatterns += patterns( 'checker.cc_frontend.web.problems',
 
 # Submission level links
 urlpatterns += patterns('checker.cc_frontned.web.submissions',
-    (r'^$', 'show_all_submissions'),
-    (r'^(?P<page>\d+)/$', 'show_all_submissions'),
-    (r'^contest-(?P<contest_id>\d+)/$', 'show_contest_submissions'),
-    (r'^contest-(?P<contest_id>\d+)/(?P<page>\d+)/$', 'show_contest_submissions'),
-    (r'^problem-(?P<problem_id>\d+)/$', 'show_problem_submissions'),
-    (r'^problem-(?P<problem_id>\d+)/(?P<page>\d+)/$', 'show_problem_submissions'),
+    (r'^submissions/$', 'show_all_submissions'),
+    (r'^\w+submissions/(?P<page>\d+)/$', 'show_all_submissions'),
+    (r'^\w+submissions/contest-(?P<contest_id>\d+)/$', 'show_contest_submissions'),
+    (r'^\w+submissions/contest-(?P<contest_id>\d+)/(?P<page>\d+)/$', 'show_contest_submissions'),
+    (r'^\w+submissions/problem-(?P<problem_id>\d+)/$', 'show_problem_submissions'),
+    (r'^\w+submissions/problem-(?P<problem_id>\d+)/(?P<page>\d+)/$', 'show_problem_submissions'),
     (r'^submission/(?P<submission_id>\d+)/$'),
 )
