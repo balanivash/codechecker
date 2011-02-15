@@ -42,40 +42,28 @@ class Default(Store):
         q_sub.errors = err_msg
         q_sub.save()
 
-    def get_test_group(self, problem_id=None):
-        q_tgs = TestSet.objects.filter(problem=int(problem_id))
-        for q_tg in q_tgs:
-            ret_tg['prob_id'] = problem_id
-            ret_tg['testgroup_id'] = str(q_tg.pk)
-            ret_tg['timelimit'] = q_tg.timelimit
-            ret_tg['memlimit'] = q_tg.memlimit
-            ret_tg['score'] = q_tg.score 
-            ret_tg['is_cust_scored'] = q_tg.is_cust_scored 
-            ret_tg['cust_execute'] = q_tg.cust_executable 
-            ifnames = [] 
-            ofnames = []
-            q_tcs = Testcase.objects.filter(testset=q_tg.pk)
-            for q_tc in q_tcs:
-                ifname = os.path.join(self.config.abs_path, str(q_tc.pk) +
-                            '.in')
-                in_file = open(ifname, 'w')
-                in_file.write(q_tc.input)
-                in_file.close()
-                ifnames.append(ifname)
-                ofname = os.path.join(self.config.abs_path, str(q_tc.pk) +
-                            '.ref')
-                on_file = open(ofname, 'w')
-                on_file.write(q_tc.output)
-                on_file.close()
-                ofnames.append(ofname)
+    def get_all_testsets(self, problem_id=None):
+        testsets = TestSet.objects.filter(problem=int(problem_id))
+        for testset in testsets:
+            ret_ts['prob_id'] = problem_id
+            ret_ts['testset_id'] = str(testset.pk)
+            ret_ts['timelimit'] = testset.timelimit
+            ret_ts['memlimit'] = testset.memlimit
+            ret_ts['score'] = testset.score 
+            ret_ts['is_cust_scored'] = testset.is_cust_scored 
+            ret_ts['cust_execute'] = testset.cust_executable 
+            yield ret_ts
 
-            ret_tg['input_files'] = ifnames
-            ret_tg['output_files'] = ofnames
-            yield ret_tg
-
-
-    def set_test_group_score(self, score, problem_id=None,
-                             test_group_id=None, submission_id=None):
+    def get_all_testcases(self, testset_id):
+		testcases = Testcase.objects.filter(testset=testset_id)
+		for testcase in testcases:
+			ret_tc['infile'] = testcase.input
+			ret_tc['reffile'] = testcase.output 
+			ret_tc['testcase_id'] = testcase.pk
+			yield ret_tc
+	
+    def set_testset_score(self, score, problem_id=None,
+                             test_set_id=None, submission_id=None):
         pass
 
     def set_submission_run_status(self, status, submission_id=None):

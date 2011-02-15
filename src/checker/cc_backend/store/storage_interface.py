@@ -52,48 +52,40 @@ class Store:
         """
         pass
 
-    def get_test_group(self, prob_id=None):
+    def get_all_testsets(self, prob_id=None):
         """
-        A test_group is a dictionary containing a list of input files
+        A test_set is a dictionary containing a list of input files
         and corresponding ref_output objects. The output ref_output
         objects are either reference output files or a binary program
         that can check the output produced by the submission.
 
         The returned dictionary also contains an attribute that
-        identifies the test_group id. This is used in the scoring
+        identifies the test_set id. This is used in the scoring
         module to identify the scoring algorithm to use.
 
         This function should be implemented as a python generator. The
         Evaluation module calls this function repeatedly to get each
-        test_group successively.
+        test_set successively.
 
         Arguments: prob_id -> string id of the problem.
 
-        Returns: A testgroup object in each successive call until no
-        more remains. A testgroup object is a dictionary with the
+        Returns: A testset object in each successive call until no
+        more remains. A testset object is a dictionary with the
         following key/value pairs:
 
         {
              "prob_id" : "string problem id",
 
-             "testgroup_id" : "string id for testgroup",
+             "testset_id" : "string id for testset",
 
-             "timelimit" : "time limit for a submisson for this testgroup",
+             "timelimit" : "time limit for a submisson for this testset",
 
-             "memlimit" : "memory limit for a submisson for this testgroup",
-
-             "input_files" : [list of input file names] each of the form 
-                                submission_id.in and corresponding outfile
-                                and errfile would be submission_id.{out, err},
-
-             "output_files" : [list of corresponding reference output
-                              file names] or None if a separate
-                              program evaluates the outputs produced,
+             "memlimit" : "memory limit for a submisson for this testset",
 
              "cust_execute" : binary to execute as checker program
                               (TODO write details of semantics),
 
-             "score" : The int score if all cases in this testgroup
+             "score" : The int score if all cases in this testset
                        pass,
 
              "is_cust_scored" : A flag, if True indicates that
@@ -105,12 +97,31 @@ class Store:
         """
         pass
 
-    def set_testgroup_score(self, score, testgroup_id=None,
+    def set_testset_score(self, score, testset_id=None,
                             sub_id=None):
         """
-        Sets the score for a submission for a testgroup
+        Sets the score for a submission for a testset
         """
         pass
+	
+	
+
+    def get_all_testcases(self, testset_id):
+	"""
+	Fetches the test cases that are part of testset of a problem, 
+	identified by testset_id. 
+	Returns: A testset object in each successive call until no
+	more remains. A testset object is a dictionary with the
+	following key/value pairs:
+
+	{
+		 "testcase_id" : "string id for testset",
+		 "infile"     : "name of the input file of the test case",
+		 "reffile"    : "name of the reference output file"
+	}
+	"""
+	pass
+
 
     def set_submission_run_status(self, status, sub_id=None):
         """
