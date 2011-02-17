@@ -19,15 +19,15 @@ class Default(Store):
         self.config = config
 
     def get_submission(self):
-        try :
+        try:
             q_sub = Submission.objects.filter(result='QU')[0]
             src_fname = os.path.join(self.config.abs_path, str(q_sub.pk) +
                         '.' + q_sub.language)
             src_file = open(src_fname, 'w')
             src_file.write(q_sub.code)
             src_file.close()
-            ret = { }
-            ret['src_file'] = src_fname 
+            ret = {}
+            ret['src_file'] = src_fname
             ret['prob_id'] = str(q_sub.problem)
             ret['id'] = str(q_sub.pk)
             return ret
@@ -45,26 +45,30 @@ class Default(Store):
     def get_all_testsets(self, problem_id=None):
         testsets = TestSet.objects.filter(problem=int(problem_id))
         for testset in testsets:
+            ret_ts = {}
             ret_ts['prob_id'] = problem_id
             ret_ts['testset_id'] = str(testset.pk)
             ret_ts['timelimit'] = testset.timelimit
             ret_ts['memlimit'] = testset.memlimit
-            ret_ts['score'] = testset.score 
-            ret_ts['is_cust_scored'] = testset.is_cust_scored 
-            ret_ts['cust_execute'] = testset.cust_executable 
+            ret_ts['score'] = testset.score
+            ret_ts['is_cust_scored'] = testset.is_cust_scored
+            ret_ts['cust_execute'] = testset.cust_executable
             yield ret_ts
 
     def get_all_testcases(self, testset_id):
-		testcases = Testcase.objects.filter(testset=testset_id)
-		for testcase in testcases:
-			ret_tc['infile'] = testcase.input
-			ret_tc['reffile'] = testcase.output 
-			ret_tc['testcase_id'] = str(testcase.pk)
-			yield ret_tc
-	
+        testcases = Testcase.objects.filter(testset=testset_id)
+        for testcase in testcases:
+            ret_tc = {}
+            ret_tc['infile'] = testcase.input
+            ret_tc['reffile'] = testcase.output
+            ret_tc['testcase_id'] = str(testcase.pk)
+            yield ret_tc
+
     def set_testset_score(self, score, problem_id=None,
                              test_set_id=None, submission_id=None):
-        pass
+        testset = TestSet.objects.filter(pk=test_set_id)
+        testset.score = score
+        testset.save()
 
     def set_submission_run_status(self, status, submission_id=None):
         q_sub = Submission.objects.filter(pk=int(submission_id))

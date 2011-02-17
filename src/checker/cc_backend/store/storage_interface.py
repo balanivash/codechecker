@@ -103,25 +103,22 @@ class Store:
         Sets the score for a submission for a testset
         """
         pass
-	
-	
 
     def get_all_testcases(self, testset_id):
-	"""
-	Fetches the test cases that are part of testset of a problem, 
-	identified by testset_id. 
-	Returns: A testset object in each successive call until no
-	more remains. A testset object is a dictionary with the
-	following key/value pairs:
+        """
+        Fetches the test cases that are part of testset of a problem,
+        identified by testset_id.
+        Returns: A testset object in each successive call until no
+        more remains. A testset object is a dictionary with the
+        following key/value pairs:
 
-	{
-		 "testcase_id" : "string id for testset",
-		 "infile"     : "name of the input file of the test case",
-		 "reffile"    : "name of the reference output file"
-	}
-	"""
-	pass
-
+        {
+        "testcase_id" : "string id for testset",
+        "infile"     : "name of the input file of the test case",
+        "reffile"    : "name of the reference output file"
+        }
+        """
+    pass
 
     def set_submission_run_status(self, status, sub_id=None):
         """
