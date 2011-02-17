@@ -1,13 +1,22 @@
 #include <secexec.h>
 
+#define EXEC_FAILED 111
+#define GRACE_TIME 2 
+#define MB_SHIFT 20
+
 struct sigaction alarm_act;
 pid_t p;
 
 static void alarm_handler(int signo) 
 {
-  /* its time to kill the child now! */
   kill(p, SIGKILL);
 }
+
+/* 
+	Executes a submission inside a child process at a specified (lower) privilege
+	and specified resource limits. The execution happens in a chroot environment,
+	so care must be taken to set up the chroot.
+*/
 
 int secure_spawn(ExecArgs ea) {
   int ret;
@@ -21,57 +30,56 @@ int secure_spawn(ExecArgs ea) {
     freopen(ea.outfile, "w", stdout);
     freopen(ea.errfile, "w", stderr);
 
-    /* jailroot is expressed in absolute pathname terms.*/
-    
+    //jailroot is expressed in absolute pathname terms.
     chdir(ea.jailroot);
     char *curdir = getcwd(NULL, 0);
     ret = chroot(curdir);
     free(curdir);
+
 #ifdef JAIL
     FILE *fp = fopen("./chstuff", "a");
     if(fp) {
-      fprintf(fp, "euid = %d ret = %d errno = %d\n", geteuid(), ret, errno);
+      fprintf(fp, "ret = %d errno = %d\n", ret, errno);
       fclose(fp);
     }
 #endif /* JAIL */
-    
+
     //drop priveleges
     setuid(ea.euid);    
 
     struct rlimit lim ;
-    // set limit on number of forks possible.
     lim.rlim_cur = lim.rlim_max = 0; 
     ret = setrlimit(RLIMIT_NPROC, &lim);
 
-    lim.rlim_cur = lim.rlim_max = ea.memlimit << 20;
+    lim.rlim_cur = lim.rlim_max = ea.memlimit << MB_SHIFT;
     ret = setrlimit(RLIMIT_AS, &lim);
 
     lim.rlim_cur = ea.timelimit; lim.rlim_max = ea.timelimit + 1;
     ret = setrlimit(RLIMIT_CPU, &lim);
 
-    lim.rlim_cur = lim.rlim_max = ea.maxfilesz << 20;
+    lim.rlim_cur = lim.rlim_max = ea.maxfilesz << MB_SHIFT;
     ret = setrlimit(RLIMIT_FSIZE, &lim);
 
     targv[0] = ea.execname;
     ret = execvp(ea.execname, targv); 
     
-    //arbitrarily chosen to let parent know that execvp failed; we
-    //reach here only if execvp fails
-    return 111;
+    //we reach here only if execvp fails
+    return EXEC_FAILED;
   }
 
   /* setting up an alarm for 'timelimit+2' seconds, since it includes CPU and I/O time */
   alarm_act.sa_handler = alarm_handler;
   sigaction(SIGALRM, &alarm_act, NULL);
-  alarm(ea.timelimit+2); 
+  alarm(ea.timelimit+GRACE_TIME); 
 
   int status;
   struct rusage submission_stats;
 
   int wait_ret = wait3(&status, 0, &submission_stats);
+
 #ifdef DBG
+
   FILE *fp = fopen("/tmp/setuid-helper.debug", "a");
-  FILE *fs = fopen("/tmp/stats", "w");
     
   if (WIFSIGNALED(status)) {
       fprintf(fp, "submission %s signalled status = %d errno = %d\n", ea.execname, WTERMSIG(status), errno);
@@ -84,8 +92,9 @@ int secure_spawn(ExecArgs ea) {
     fprintf(fp, "child %s did not exit normally and did not get"
 	    " signalled, exited with status = %d errno = %d\n", ea.execname, status, errno);
   fclose(fp);
-  fclose(fs);
+
 #endif /* DBG */
+
   return status;
 }
 
