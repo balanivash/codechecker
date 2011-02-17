@@ -59,7 +59,7 @@ class Default(Store):
 		for testcase in testcases:
 			ret_tc['infile'] = testcase.input
 			ret_tc['reffile'] = testcase.output 
-			ret_tc['testcase_id'] = testcase.pk
+			ret_tc['testcase_id'] = str(testcase.pk)
 			yield ret_tc
 	
     def set_testset_score(self, score, problem_id=None,
